@@ -13,6 +13,12 @@ from cue_sdk import *
 import os
 import time
 
+# global variable definitions
+tilde = 13
+tab = 25
+capslock = 37
+shift = 49
+ctrl = 61
 # function definitions, mostly animations
 
 def make_key_flash(key_number,seconds, frequency, red, green, blue):
@@ -20,8 +26,10 @@ def make_key_flash(key_number,seconds, frequency, red, green, blue):
 	key_number should be a the return of the get_num_for_key function
 	seconds and RGB MUST be an integer
 	frequency MUST be a floating point'''
-	
+
 	for counter in range(seconds):
+		# this for loop is on a per-second basis, and refreshes once per second
+		# key turns off, key turns on, once per second
 		for hz in range(int(frequency)):
 			Corsair.SetLedsColors(CorsairLedColor(key_number, red, green, blue))
 			time.sleep(float(1/(2*frequency)))
@@ -34,6 +42,13 @@ def get_num_for_key(key_name):
 	without creating a giant libary for every key'''
 
 	return Corsair.GetLedIdForKeyName(key_name)
+
+def flash_line_of_keys(start, stop, seconds, frequency, red, green, blue):
+	'''will flash row of keys up to specific key. for information on variable names, see make_key_flash function'''
+
+	for counter in range(seconds):
+		print 'test'
+
 
 Corsair = CUESDK("CUESDK_2013.dll")
 Corsair.RequestControl(CAM.ExclusiveLightingControl)
